@@ -1,0 +1,148 @@
+/* Border box declaration 
+https://www.paulirish.com/2012/box-sizing-border-box-ftw/ */
+html {
+  box-sizing: border-box;
+}
+
+/* inherit border-box on all elements in the universe and before and after
+ */
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: Arial, Geneva, sans-serif;
+  background: rgba(240, 237, 237, 0.692);
+}
+
+a {
+  color: #2772b0;
+}
+
+.wrapper {
+  width: 97%;
+  max-width: 1500px;
+  margin: 0 auto;
+  float: none;
+  background: rgba(240, 237, 237, 0.692);
+  /* Allows use of grid */
+  display: grid;
+  /* Adds 10px in between each grid cell */
+  gap: 10px;
+}
+
+div img {
+  width: 100%;
+  object-fit: cover;
+  height: 250px;
+  max-height: 300px;
+  border-radius: 5px;
+}
+
+/* grid system -- mobile first! */
+/* flex contatiner */
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 25px;
+}
+
+/* attribute selector to give some margin between columns and apply styles to flex items */
+
+/* Give each card full width */
+[class*="col-"] {
+  grid-column: span 12;
+}
+
+article {
+  display: grid;
+  /* 
+    4 rows for 4 children, in order:
+      auto = h3        (shrinks to fit heading)
+      auto = img       (shrinks to fit image)
+      1fr = p.main-content  (takes up ALL leftover space)
+      auto = p(link)   (shrinks to fit link)
+    
+    1 fr = 1 fraction unit
+    Only 1fr in line -> get everything that is left (similar to flex:1)
+  */
+  grid-template-rows: auto auto 1fr auto;
+  padding: 5px 15px;
+  background: #22c1c3;
+  background: linear-gradient(0deg,
+      rgba(75, 223, 225, 0.716) 0%,
+      rgba(139, 223, 224, 1) 24%,
+      rgba(171, 235, 245, 1) 57%,
+      rgba(245, 245, 245, 1) 92%);
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.05);
+}
+
+h3 {
+  font-size: 1.5em;
+  margin: 0.5em 0;
+}
+
+.main-content {
+  min-height: 0;
+  align-self: stretch;
+  font-size: 1.1em;
+}
+
+/* Add background colors to see how much space each column is taking */
+
+/* Added unified white color bg and border for cards to show dimensions uniformly without color*/
+
+/* Tablet Landscape Screen Sizes */
+@media only screen and (min-width: 480px) {
+
+  .col-1,
+  .col-2,
+  .col-1-2 {
+    grid-column: span 6;
+  }
+
+  .col-3,
+  .col-4,
+  .col-1-3,
+  .col-mid,
+  .col-5,
+  .row-even article {
+    grid-column: span 12;
+  }
+
+  .col-2 {
+    order: -1;
+  }
+}
+
+/* Desktop screen Sizes */
+@media only screen and (min-width: 768px) {
+  .col-1 {
+    grid-column: span 3;
+    /* ~25% */
+  }
+
+  .col-2 {
+    grid-column: span 6;
+    /* ~50% */
+  }
+
+  .col-3 {
+    grid-column: span 9;
+    /* ~75% */
+  }
+
+  .col-4 {
+    grid-column: span 12;
+  }
+
+  .row-even article {
+    grid-column: span 4;
+    /* 3 per row */
+  }
+}
